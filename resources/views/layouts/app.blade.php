@@ -50,7 +50,6 @@
 @include('layouts.partials.ie-warning');
 
 <!-- Javascript -->
-
 <!-- Vendors Scripts -->
 <script src="../vendors/bower_components/jquery/dist/jquery.min.js"></script>
 <script src="../vendors/bower_components/popper.js/dist/umd/popper.min.js" ></script>
@@ -61,6 +60,8 @@
 <!-- App Scripts-->
 <script src="{{ asset('js/app.js') }}" ></script>
 <script src="{{ asset('js/theme.min.js') }}" ></script>
+
+@yield('js')
 
 </body>
 </html>

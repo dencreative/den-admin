@@ -18,4 +18,15 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/dashboard', 'DashboardController@index')->name('dashboard');
+
+Route::resource('/roles', 'RoleController')
+    ->only([
+        'index',
+        'update'
+    ])
+    ->names([
+        'index' => 'roles.index',
+        'update' => 'roles.update'
+    ]);
+
 Route::resource('/users', 'UserController');

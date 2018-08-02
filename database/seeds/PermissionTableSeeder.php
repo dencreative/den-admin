@@ -6,14 +6,14 @@ use App\Permission;
 class PermissionTableSeeder extends Seeder
 {
     protected $permissions = [
-        'roles_create' => [],
-        'roles_read' => [],
-        'roles_update' => [],
-        'roles_delete' => [],
+        'roles_create' => 'Create Roles',
+        'roles_read' => 'View Roles',
+        'roles_update' => 'Assign Roles',
+        'roles_delete' => 'Delete Roles',
 
-        'users_create' => [],
-        'users_delete' => [],
-        'users_edit' => [],
+        'users_create' => 'Create User',
+        'users_delete' => 'Delete User',
+        'users_edit' => 'Edit User',
     ];
 
     /**
@@ -26,8 +26,8 @@ class PermissionTableSeeder extends Seeder
         foreach ($this->permissions as $key => $val) {
             $permission = new Permission();
             $permission->name = $key;
-            if(array_key_exists('display_name', $val))
-                $permission->display_name = $val['display_name'];
+            if(isset($val) && $val !== '')
+                $permission->display_name = $val;
 
             $permission->save();
         }

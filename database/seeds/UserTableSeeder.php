@@ -8,11 +8,11 @@ class UserTableSeeder extends Seeder
 {
     public function run()
     {
-        $role_admin  = Role::where('name', 'admin')->first();
+        $role_admin  = Role::find(1);
 
         $admin = new User();
-        $admin  ->name = 'Administrator';
-        $admin->email = 'admin@example.com';
+        $admin->name = 'Super Admin';
+        $admin->email = 'super@admin.com';
         $admin->password = bcrypt('secret');
         $admin->save();
         $admin->roles()->attach($role_admin);
