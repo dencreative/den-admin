@@ -6,6 +6,10 @@ use Illuminate\Database\Eloquent\Model;
 
 class Role extends Model
 {
+    public static function getSuperAdmin() {
+        return Role::find(1);
+    }
+
     public function users()
     {
         return $this->belongsToMany(User::class, 'roles_users');
@@ -17,7 +21,6 @@ class Role extends Model
     }
 
     public function hasPermission($permission) {
-        return $this->permissions()->get()->contains($permission);
-//        return null !== $this->permissions()->where('name', $permission)->first();
+        return null !== $this->permissions()->where('name', $permission)->first();
     }
 }

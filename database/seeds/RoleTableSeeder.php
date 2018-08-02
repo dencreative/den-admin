@@ -8,10 +8,10 @@ class RoleTableSeeder extends Seeder {
 
     public function run()
     {
-        $super_admin_role = new Role();
-        $super_admin_role->name = 'Super-Admin';
-        $super_admin_role->save();
-        $super_admin_role->permissions()->attach(Permission::all());
+        $superAdmin = new Role();
+        $superAdmin->name = 'Super Admin';
+        $superAdmin->save();
+        $superAdmin->permissions()->attach(Permission::all());
 
         $admin_role = new Role();
         $admin_role->name = 'Admin';

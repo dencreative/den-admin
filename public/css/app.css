@@ -1,8 +1,8 @@
 .loader-container {
-  width: 200px;
-  height: 100px;
+  width: 180px;
+  height: 80px;
   margin: auto;
-  margin-top: 30vh;
+  margin-top: 50vh;
   overflow: hidden;
 }
 
@@ -11,25 +11,25 @@
 }
 
 .dash {
-  height: 10px;
+  height: 8px;
   display: inline-block;
-  border-radius: 50px;
+  border-radius: 40px;
 }
 
 .div {
-  background: #F92672;
+  background: #c41d59;
 }
 
 .class-name {
-  background: #A6E22E;
+  background: #70c83f;
 }
 
 .class {
-  background: #FFE792;
+  background: #c0ae6e;
 }
 
 .par {
-  background: #6c6c69;
+  background: #8c8c88;
 }
 
 .exp-40 {

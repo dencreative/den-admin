@@ -6,14 +6,15 @@ use App\Permission;
 class PermissionTableSeeder extends Seeder
 {
     protected $permissions = [
+        'roles_view' => 'View Roles',
         'roles_create' => 'Create Roles',
-        'roles_read' => 'View Roles',
         'roles_update' => 'Assign Roles',
         'roles_delete' => 'Delete Roles',
 
-        'users_create' => 'Create User',
-        'users_delete' => 'Delete User',
-        'users_edit' => 'Edit User',
+        'users_view' => 'View Users',
+        'users_create' => 'Create Users',
+        'users_update' => 'Edit Users',
+        'users_delete' => 'Delete Users',
     ];
 
     /**

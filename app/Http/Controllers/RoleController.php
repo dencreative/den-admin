@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Permission;
 use App\Role;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class RoleController extends Controller
 {
@@ -25,6 +26,8 @@ class RoleController extends Controller
      */
     public function index(Request $request)
     {
+        $this->authorize('view', Role::class);
+
         $roles = Role::all();
         $permissions = Permission::all();
         return view('roles.index', compact('roles','permissions'));

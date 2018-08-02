@@ -30,23 +30,37 @@ class User extends Authenticatable
         return $this->belongsToMany(Role::class, 'roles_users');
     }
 
-    public function authorizeRoles($roles)
+    public function isSuperAdmin()
     {
-        if (is_array($roles)) {
-            return $this->hasAnyRole($roles) ||
-                abort(401, 'This action is unauthorized.');
-        }
-        return $this->hasRole($roles) ||
-            abort(401, 'This action is unauthorized.');
-    }
-
-    public function hasAnyRole($roles)
-    {
-        return null !== $this->roles()->whereIn('name', $roles)->first();
+        return $this->roles()->where('id','=','1');
     }
 
     public function hasRole($role)
     {
         return null !== $this->roles()->where('name', $role)->first();
+    }
+
+    public function addRole($role) {
+        if (is_string($role))
+            $role = Role::where('name', $role)->first();
+
+        $this->roles()->attach($role);
+
+    }
+
+    public function removeRole($role) {
+        if (is_string($role))
+            $role = Role::where('name', $role)->first();
+
+        $this->roles()->detatch($role);
+    }
+
+    public function hasPermission($permission)
+    {
+        foreach ($this->roles as $role) {
+            if($role->hasPermission($permission))
+                return true;
+        }
+        return false;
     }
 }

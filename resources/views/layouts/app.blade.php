@@ -49,16 +49,20 @@
 
 @include('layouts.partials.ie-warning');
 
-<!-- Javascript -->
-<!-- Vendors Scripts -->
-<script src="../vendors/bower_components/jquery/dist/jquery.min.js"></script>
-<script src="../vendors/bower_components/popper.js/dist/umd/popper.min.js" ></script>
-<script src="../vendors/bower_components/bootstrap/dist/js/bootstrap.min.js" ></script>
-<script src="../vendors/bower_components/jquery.scrollbar/jquery.scrollbar.min.js" ></script>
-<script src="../vendors/bower_components/jquery-scrollLock/jquery-scrollLock.min.js" ></script>
-
 <!-- App Scripts-->
 <script src="{{ asset('js/app.js') }}" ></script>
+
+<!-- Vendors Scripts -->
+{{--<script src="vendors/bower_components/jquery/dist/jquery.min.js"></script>--}}
+<script src="vendors/bower_components/popper.js/dist/umd/popper.min.js" ></script>
+<script src="vendors/bower_components/bootstrap/dist/js/bootstrap.min.js" ></script>
+<script src="vendors/bower_components/jquery.scrollbar/jquery.scrollbar.min.js" ></script>
+<script src="vendors/bower_components/jquery-scrollLock/jquery-scrollLock.min.js" ></script>
+<script src="vendors/bower_components/datatables.net/js/jquery.dataTables.min.js"></script>
+{{--<script src="/backend/vendors/bower_components/sweetalert2/dist/sweetalert2.min.js"></script>--}}
+{{--<script src="/backend/vendors/flatpickr/flatpickr.min.js"></script>--}}
+
+<!-- Theme Scripts-->
 <script src="{{ asset('js/theme.min.js') }}" ></script>
 
 @yield('js')

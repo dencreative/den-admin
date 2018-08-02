@@ -6,14 +6,10 @@
 
 @section('body')
     <p>Roles can be assigned different permissions here.</p>
-    <table class="table table-sm">
+    <table id="table" class="table table-sm table-responsive">
         <thead class="thead-light">
         <tr>
-            <th scope="col" rowspan="2">Name</th>
-            <th scope="col" class="text-center" colspan="{{ count($permissions) }}">Permissions</th>
-            {{--<th scope="col" rowspan="2"></th>--}}
-        </tr>
-        <tr>
+            <th scope="col"> Role Name</th>
             @foreach($permissions as $permission)
                 <th scope="col">{{ $permission->getName() }}</th>
             @endforeach
@@ -22,15 +18,17 @@
         <tbody>
         @foreach($roles as $role)
             @if($role->id !== 1)
-                <tr>
-                    <th scope="row">{{ $role->name }}</th>
+                <tr scope="row">
+                    <th>{{ $role->name }}</th>
                     @foreach($permissions as $permission)
                         <td>
                             @php
-                                $hasPermission = $role->hasPermission($permission);
+                                $hasPermission = $role->hasPermission($permission->name) ? 'checked': '';
+                                $canEdit = Auth::user()->hasPermission('roles_update') ? '': 'disabled';
+                                $toggleFunction = 'togglePermission('.$role->id.', '.$permission->id.', '.route('roles.update', $role->id).')';
                             @endphp
                             <div class="toggle-switch toggle-switch--red">
-                                <input type="checkbox" onclick="togglePermission({{ $role->id }}, {{ $permission->id }}, '{{ route('roles.update', $role->id) }}')" class="toggle-switch__checkbox" {{ $hasPermission ? 'checked': ''}}>
+                                <input type="checkbox" onclick="{{$toggleFunction}}" class="toggle-switch__checkbox" {{ $hasPermission }} {{ $canEdit }}>
                                 <i class="toggle-switch__helper"></i>
                             </div>
                         </td>
@@ -50,10 +48,13 @@
 @endsection
 
 @section('footer')
+
 @endsection
 
 @section('js')
     <script>
+
+
         function togglePermission(role_id, permission_id, url) {
             $.ajaxSetup({
                 headers: {
