@@ -3,27 +3,34 @@
 namespace App\Http\Controllers;
 
 use App\Role;
+use App\User;
 use Illuminate\Http\Request;
 
 class UserController extends Controller
 {
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
     public function __construct()
     {
         $this->middleware('auth');
     }
 
-    /**
-     * Show the application dashboard.
-     * @param \Illuminate\Http\Request
-     * @return \Illuminate\Http\Response
-     */
     public function index(Request $request)
     {
-        return view('users.index');
+        $this->authorize('view', User::class);
+
+        $roles = Role::all()->reject(function ($element){
+            return $element->id === 1;
+        });
+        $users = User::all()
+            ->map(function($user) {
+                return [
+                    'id' => $user->id,
+                    'name' => $user->name,
+                    'email' => $user->email,
+                    'created_at' => $user->created_at->diffForHumans(),
+                    'roles' => $user->roles,
+                ];
+            });
+
+        return view('users.index', compact('users', 'roles'));
     }
 }

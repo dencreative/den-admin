@@ -9,27 +9,18 @@ use Illuminate\Support\Facades\Auth;
 
 class RoleController extends Controller
 {
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
     public function __construct()
     {
         $this->middleware('auth');
     }
 
-    /**
-     * Show the application dashboard.
-     * @param \Illuminate\Http\Request
-     * @return \Illuminate\Http\Response
-     */
     public function index(Request $request)
     {
         $this->authorize('view', Role::class);
 
         $roles = Role::all();
         $permissions = Permission::all();
+
         return view('roles.index', compact('roles','permissions'));
     }
 
@@ -42,7 +33,7 @@ class RoleController extends Controller
 
         $role->permissions()->toggle($request->permission_id);
 
-        return response()->json(['success']);
+        return response()->json(['success' => 'Message goes here']);
     }
 
 }

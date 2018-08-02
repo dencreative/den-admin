@@ -43,6 +43,7 @@ class RolePolicy
      */
     public function update(User $user)
     {
+        return Auth::user()->hasPermission('roles_update');
     }
 
     /**

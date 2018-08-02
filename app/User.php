@@ -32,12 +32,15 @@ class User extends Authenticatable
 
     public function isSuperAdmin()
     {
-        return $this->roles()->where('id','=','1');
+        return $this->hasRole('Super Admin');
     }
 
     public function hasRole($role)
     {
-        return null !== $this->roles()->where('name', $role)->first();
+        if (is_string($role))
+            $role = $this->roles()->where('name', $role)->first();
+
+        return null !== $role;
     }
 
     public function addRole($role) {

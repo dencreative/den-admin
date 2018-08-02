@@ -1,2 +1,11 @@
 @import '_variables';
 @import '_pageloader';
+
+.select2{
+  z-index:0;
+  width:100%;
+}
+
+.paginate_button.current {
+  background-color: #ff6b68;
+}

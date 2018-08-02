@@ -1,8 +1,8 @@
 .loader-container {
-  width: 180px;
-  height: 80px;
+  width: 400px;
+  height: 175px;
   margin: auto;
-  margin-top: 50vh;
+  margin-top: 30vh;
   overflow: hidden;
 }
 
@@ -11,25 +11,25 @@
 }
 
 .dash {
-  height: 8px;
+  height: 20px;
   display: inline-block;
-  border-radius: 40px;
+  border-radius: 10px;
 }
 
 .div {
-  background: #c41d59;
+  background: #F92672;
 }
 
 .class-name {
-  background: #70c83f;
+  background: #A6E22E;
 }
 
 .class {
-  background: #c0ae6e;
+  background: #FFE792;
 }
 
 .par {
-  background: #8c8c88;
+  background: #272822;
 }
 
 .exp-40 {
@@ -723,5 +723,14 @@
   to {
     top: -175px;
   }
+}
+
+.select2 {
+  z-index: 0;
+  width: 100%;
+}
+
+.paginate_button.current {
+  background-color: #ff6b68;
 }
 
