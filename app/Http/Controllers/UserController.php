@@ -17,20 +17,32 @@ class UserController extends Controller
     {
         $this->authorize('view', User::class);
 
-        $roles = Role::all()->reject(function ($element){
-            return $element->id === 1;
-        });
+        $roles = Role::all()->except(Role::getSuperAdmin()->id);
         $users = User::all()
+            ->except([1])
             ->map(function($user) {
                 return [
                     'id' => $user->id,
                     'name' => $user->name,
                     'email' => $user->email,
                     'created_at' => $user->created_at->diffForHumans(),
-                    'roles' => $user->roles,
+                    'roles' => $user->roles->pluck('id')->all(),
                 ];
             });
 
         return view('users.index', compact('users', 'roles'));
     }
+
+    public function update(Request $request, $id)
+    {
+        $user = User::find($id);
+        $this->validate($request, [
+            'role_id' => 'required'
+        ]);
+
+        $user->roles()->toggle($request->role_id);
+
+        return response()->json(['success' => 'Role toggled']);
+    }
+
 }

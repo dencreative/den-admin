@@ -14,14 +14,14 @@
         </div>
 
         <ul class="navigation">
-            <li><a href="dashboard"><i class="zmdi zmdi-view-dashboard"></i>Dashboard</a></li>
+            <li><a href="{{ route('dashboard') }}"><i class="zmdi zmdi-view-dashboard"></i>Dashboard</a></li>
             <hr>
 
             @can('view', App\User::class)
-                <li><a href="users"><i class="zmdi zmdi-accounts-list"></i>Users</a></li>
+                <li><a href="{{ route('users.index') }}"><i class="zmdi zmdi-accounts-list"></i>Users</a></li>
             @endcan
             @can('view', App\Role::class)
-                <li><a href="roles"><i class="zmdi zmdi-face"></i>Roles</a></li>
+                <li><a href="{{ route('roles.index') }}"><i class="zmdi zmdi-face"></i>Roles</a></li>
             @endcan
             @canany('view', [App\Role::class, App\User::class])
                 <hr>
@@ -30,8 +30,8 @@
             <li class="navigation__sub">
                 <a href=""><i class="zmdi zmdi-collection-text"></i> Playbooks</a>
                 <ul>
-                    <li><a href="playbooks/entries">Entries</a></li>
-                    <li><a href="playbooks/categories">Categories</a></li>
+                    <li><a href="{{ route('entries.index') }}">Entries</a></li>
+                    <li><a href="{{ route('categories.index') }}">Categories</a></li>
                 </ul>
             </li>
             <hr>

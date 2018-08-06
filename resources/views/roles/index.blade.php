@@ -5,7 +5,6 @@
 @endsection
 
 @section('body')
-
     <table id="table" class="table table-responsive">
         <thead class="thead-light">
         <tr>
@@ -25,7 +24,7 @@
                             @php
                                 $hasPermission = $role->hasPermission($permission->name) ? 'checked' : '';
                                 $canEdit = Auth::user()->hasPermission('roles_update') ? '' : 'disabled';
-                                $toggleFunction = Auth::user()->hasPermission('roles_update') ? 'togglePermission('.$role->id.', '.$permission->id.', "'.route('roles.update', $role->id).'")' : '';
+                                $toggleFunction = Auth::user()->hasPermission('roles_update') ? 'togglePermission('.$role->id.', '.$permission->id.')' : '';
                             @endphp
                             <div class="toggle-switch toggle-switch--red">
                                 <input type="checkbox" class="toggle-switch__checkbox" onclick="{{$toggleFunction}}" {{ $hasPermission }} {{ $canEdit }}>
@@ -54,7 +53,7 @@
 
 @section('js')
     <script>
-        function togglePermission(role_id, permission_id, url) {
+        function togglePermission(role_id, permission_id) {
             $.ajaxSetup({
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -62,7 +61,7 @@
             });
             $.ajax({
                 type: 'POST',
-                url: url,
+                url: 'roles/'+role_id,
                 data: { _method: 'PUT', id: role_id, permission_id: permission_id }
             });
         }

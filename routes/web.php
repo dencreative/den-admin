@@ -11,22 +11,16 @@
 |
 */
 
-Route::get('/', function () {
-    return view('auth.login');
-})->middleware('guest');
-
 Auth::routes();
 
-Route::get('/dashboard', 'DashboardController@index')->name('dashboard');
+Route::get('/', 'DashboardController@index')->name('dashboard');
 
-Route::resource('/roles', 'RoleController')
-    ->only([
-        'index',
-        'update'
-    ])
-    ->names([
-        'index' => 'roles.index',
-        'update' => 'roles.update'
-    ]);
+Route::resource('roles', 'RoleController');
 
-Route::resource('/users', 'UserController');
+Route::resource('users', 'UserController');
+
+Route::get('playbooks/', function() {
+    return redirect()->route('entries.index');
+});
+Route::resource('playbooks/entries', 'Playbooks\EntryController');
+Route::resource('playbooks/categories', 'Playbooks\CategoryController');

@@ -9,7 +9,7 @@
 
     <div class="header__logo hidden-sm-down">
         <h1>
-            <a class="navbar-brand" href="{{ url('/index.html') }}">
+            <a class="navbar-brand" href="{{ route('dashboard') }}">
                 {{ config('app.name', 'Laravel') }}
             </a>
         </h1>

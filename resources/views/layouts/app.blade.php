@@ -10,10 +10,13 @@
     <title>{{ config('app.name', 'Laravel') }}</title>
 
     <!-- Vendor styles -->
-    <link rel="stylesheet" href="vendors/bower_components/material-design-iconic-font/dist/css/material-design-iconic-font.min.css">
-    <link rel="stylesheet" href="vendors/bower_components/animate.css/animate.min.css">
-    <link rel="stylesheet" href="vendors/bower_components/jquery.scrollbar/jquery.scrollbar.css">
-    <link rel="stylesheet" href="vendors/bower_components/select2/dist/css/select2.min.css">
+    <link rel="stylesheet" href="{{ url('vendors/bower_components/material-design-iconic-font/dist/css/material-design-iconic-font.min.css') }}">
+    <link rel="stylesheet" href="{{ url('vendors/bower_components/animate.css/animate.min.css') }}">
+    <link rel="stylesheet" href="{{ url('vendors/bower_components/jquery.scrollbar/jquery.scrollbar.css') }}">
+    <link rel="stylesheet" href="{{ url('vendors/bower_components/select2/dist/css/select2.min.css') }}">
+    <link rel="stylesheet" href="{{ url('vendors/bower_components/trumbowyg/dist/ui/trumbowyg.min.css') }}">
+    <link rel="stylesheet" href="{{ url('vendors/bower_components/sweetalert2/dist/sweetalert2.min.css') }}">
+{{--    <link rel="stylesheet" href="{{ url('vendors/bower_components/datatables.net-buttons-dt/css/buttons.dataTables.min.css') }}">--}}
 
     <!-- App/Theme styles -->
     <link href="{{ asset('css/theme.min.css') }}" rel="stylesheet">
@@ -22,8 +25,6 @@
 
 <body data-ma-theme="red">
 <main class="main">
-
-    {{--@include('layouts.partials.pageloader')--}}
 
     @include('layouts.partials.header')
 
@@ -43,6 +44,8 @@
             </div>
         </div>
 
+        @yield('modal')
+
         @include('layouts.partials.footer')
 
     </section>
@@ -54,13 +57,16 @@
 <script src="{{ asset('js/app.js') }}" ></script>
 
 <!-- Vendors Scripts -->
-<script src="vendors/bower_components/popper.js/dist/umd/popper.min.js" ></script>
-<script src="vendors/bower_components/bootstrap/dist/js/bootstrap.min.js" ></script>
-<script src="vendors/bower_components/jquery.scrollbar/jquery.scrollbar.min.js" ></script>
-<script src="vendors/bower_components/jquery-scrollLock/jquery-scrollLock.min.js" ></script>
+<script src="{{ url('vendors/bower_components/popper.js/dist/umd/popper.min.js') }}" ></script>
+<script src="{{ url('vendors/bower_components/bootstrap/dist/js/bootstrap.min.js') }}" ></script>
+<script src="{{ url('vendors/bower_components/jquery.scrollbar/jquery.scrollbar.min.js') }}" ></script>
+<script src="{{ url('vendors/bower_components/jquery-scrollLock/jquery-scrollLock.min.js') }}" ></script>
 
-<script src="vendors/bower_components/select2/dist/js/select2.full.min.js"></script>
-<script src="vendors/bower_components/datatables.net/js/jquery.dataTables.min.js"></script>
+<script src="{{ url('vendors/bower_components/select2/dist/js/select2.full.min.js') }}" ></script>
+<script src="{{ url('vendors/bower_components/datatables.net/js/jquery.dataTables.min.js') }}" ></script>
+{{--<script src="{{ url('vendors/bower_components/datatables.net-buttons/js/dataTables.buttons.min.js') }}" ></script>--}}
+<script src="{{ url('vendors/bower_components/trumbowyg/dist/trumbowyg.min.js') }}"></script>
+<script src="{{ url('vendors/bower_components/sweetalert2/dist/sweetalert2.min.js') }}"></script>
 
 <!-- Theme Scripts-->
 <script src="{{ asset('js/theme.min.js') }}" ></script>

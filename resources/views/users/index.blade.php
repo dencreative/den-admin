@@ -6,7 +6,7 @@
 @endsection
 
 @section('body')
-{{--    @include('layouts.partials.pageloader')--}}
+    @include('layouts.partials.pageloader')
 
     <table id="user-table" class="table">
         <thead class="thead-light">
@@ -35,11 +35,16 @@
                         { data: "id", width : "7.5%", searchable: true },
                         { data: "name", width : "15%", searchable: true },
                         { data: "roles", searchable: true,
-                            render: function (data) {
-                                var html = '';
-                                html += '<select class="select2" multiple data-placeholder="Select roles">';
-                                {!! $roles !!}.forEach(function(element) {
-                                    html += '<option>'+element.name+'</option>';
+                            render: function (data, type, row) {
+                                @php
+                                    $canEdit = Auth::user()->hasPermission('roles_assign') ? '' : 'disabled';
+                                @endphp
+                                var html = '<select class="select2" multiple {{$canEdit}} data-placeholder="Select roles">';
+                                @json($roles).forEach(function(element) {
+                                    var userID = ' data-user="'+row.id+'"';
+                                    var roleID = ' data-role="'+element['id']+'"';
+                                    var isSelected = data.includes(element['id'])  ? ' selected':'';
+                                    html += '<option'+userID + roleID + isSelected+'>'+element['name']+'</option>';
                                 });
                                 return html+'</select>';
                             }
@@ -63,11 +68,31 @@
                     autoWidth: false,
                     responsive: true,
                     lengthMenu: [[15, 30, 45, -1], ["15 Rows","30 Rows","45 Rows","Everything" ]],
-                    language: { searchPlaceholder: "Search Entries..." }
+                    language: { searchPlaceholder: "Search Users..." }
                 });
 
             $('.select2').select2();
+            $('.select2').on('select2:select', function (e) {
+                var element = e.params.data.element;
+                toggleRole($(element).data('user'), $(element).data('role'), $(element).data('url'));
+            });
+            $('.select2').on('select2:unselect', function (e) {
+                var element = e.params.data.element;
+                toggleRole($(element).data('user'), $(element).data('role'), $(element).data('url'));
+            });
 
+            function toggleRole(user_id, role_id, url) {
+                $.ajaxSetup({
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    }
+                });
+                $.ajax({
+                    type: 'POST',
+                    url: 'users/'+user_id,
+                    data: { _method: 'PUT', id: user_id, role_id: role_id }
+                });
+            }
         });
 
         function onDelete(id) {

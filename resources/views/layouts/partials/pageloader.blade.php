@@ -1,4 +1,6 @@
 <div class="page-loader">
+    <img style="filter: grayscale(100%);"src={{ asset('assets/preloader.gif') }}>
+{{--
     <div class="loader-container">
     <div class="group-1">
         <div class="line line1">
@@ -53,4 +55,5 @@
         </div>
     </div>
 </div>
+--}}
 </div>
