@@ -8,39 +8,34 @@
     <table id="table" class="table table-responsive">
         <thead class="thead-light">
         <tr>
-            <th scope="col"Name</th>
-            @foreach($permissions as $permission)
-                <th scope="col">{{ $permission->getName() }}</th>
+            <th scope="col"></th>
+            @foreach($roles as $role)
+                @if($role->id !== 1)
+                    <th scope="col">{{ $role->name }}</th>
+                @endif
             @endforeach
         </tr>
         </thead>
         <tbody>
-        @foreach($roles as $role)
-            @if($role->id !== 1)
+        @foreach($permissions as $permission)
                 <tr scope="row">
-                    <th> {{ $role->name }}</th>
-                    @foreach($permissions as $permission)
-                        <td>
-                            @php
-                                $hasPermission = $role->hasPermission($permission->name) ? 'checked' : '';
-                                $canEdit = Auth::user()->hasPermission('roles_update') ? '' : 'disabled';
-                                $toggleFunction = Auth::user()->hasPermission('roles_update') ? 'togglePermission('.$role->id.', '.$permission->id.')' : '';
-                            @endphp
-                            <div class="toggle-switch toggle-switch--red">
-                                <input type="checkbox" class="toggle-switch__checkbox" onclick="{{$toggleFunction}}" {{ $hasPermission }} {{ $canEdit }}>
-                                <i class="toggle-switch__helper"></i>
-                            </div>
-                        </td>
+                    <th> {{ $permission->getName() }}</th>
+                    @foreach($roles as $role)
+                        @if($role->id !== 1)
+                            <td>
+                                @php
+                                    $hasPermission = $role->hasPermission($permission->name) ? 'checked' : '';
+                                    $canEdit = Auth::user()->hasPermission('roles_update') ? '' : 'disabled';
+                                    $toggleFunction = Auth::user()->hasPermission('roles_update') ? 'togglePermission('.$role->id.', '.$permission->id.')' : '';
+                                @endphp
+                                <div class="toggle-switch toggle-switch--red">
+                                    <input type="checkbox" class="toggle-switch__checkbox" onclick="{{$toggleFunction}}" {{ $hasPermission }} {{ $canEdit }}>
+                                    <i class="toggle-switch__helper"></i>
+                                </div>
+                            </td>
+                        @endif
                     @endforeach
-                    {{--
-                   <td class="table-active">
-                       <a class="btn btn-primary btn-sm"><i class="zmdi zmdi-eye"></i></a>
-                       <a class="btn btn-primary btn-sm"><i class="zmdi zmdi-edit"></i></a>
-                       <a class="btn btn-danger btn-sm"><i class="zmdi zmdi-delete"></i></a>
-                   </td>
-                   --}}
                 </tr>
-            @endif
         @endforeach
         </tbody>
     </table>

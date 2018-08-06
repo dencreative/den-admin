@@ -26,7 +26,7 @@
 
             <div class="form-group">
                 <button type="submit" class="btn btn-success playbook-button">Create</button>
-                <a href="{{ url()->previous() }}">
+                <a href="{{ route('entries.index') }}">
                     <button type="button" class="btn btn-light playbook-button">Cancel</button>
                 </a>
             </div>

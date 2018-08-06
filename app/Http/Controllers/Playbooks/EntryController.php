@@ -7,26 +7,18 @@ use Illuminate\Http\Request;
 use App\Playbooks\Entry;
 use App\Playbooks\Category;
 use App\Http\Controllers\Controller as Controller;
+use Illuminate\Support\Facades\Auth;
 
 class EntryController extends Controller
 {
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
     public function __construct()
     {
         $this->middleware('auth');
     }
     
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function index()
     {
+        $this->authorize('view', Entry::class);
         $entries = Entry::with('categories')->get();
 
         $entries = $entries->map(function ($entry) {
@@ -42,25 +34,16 @@ class EntryController extends Controller
         return view('playbooks.entries.index', compact('entries'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function create()
     {
+        $this->authorize('create', Entry::class);
         $categories = Category::all();
         return view('playbooks.entries.create', compact('categories'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
+        $this->authorize('create', Entry::class);
         $this->validate($request, [
             'title' => 'required',
             'body' => 'required'
@@ -82,26 +65,16 @@ class EntryController extends Controller
         return redirect()->route('entries.index');
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function show($id)
     {
+        $this->authorize('view', Entry::class);
         $entry = Entry::where('id', $id)->with('categories')->first();
         return view('playbooks.entries.show', compact('entry'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function edit($id)
     {
+        $this->authorize('update', Entry::class);
         $entry = Entry::find($id);
 
         $categories_selected = $entry->categories;
@@ -110,15 +83,9 @@ class EntryController extends Controller
         return view('playbooks.entries.edit', compact('entry', 'categories_selected', 'categories_remaining'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function update(Request $request, $id)
-    {   
+    {
+        $this->authorize('update', Entry::class);
         $entry = Entry::find($id);
 
         $this->validate($request, [
@@ -139,14 +106,9 @@ class EntryController extends Controller
         return redirect()->route('entries.show', $id);
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function destroy($id)
     {
+        $this->authorize('delete', Entry::class);
         $entry = Entry::find($id);
         $entry->categories()->detach();
         $entry->delete();

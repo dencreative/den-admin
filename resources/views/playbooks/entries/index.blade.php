@@ -28,8 +28,7 @@
     <script>
         $(document).ready(function() {
             $("#data-table").DataTable({
-                data: {!! $entries !!},
-                stateSave: true,
+                data: {!! $entries !!}, stateSave: true,
                 columns: [
                     { data: "title", width: "15%", searchable: true },
                     { data: "categories", searchable: true,

@@ -9,23 +9,14 @@ use App\Http\Controllers\Controller as Controller;
 
 class CategoryController extends Controller
 {
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
     public function __construct()
     {
         $this->middleware('auth');
     }
-    
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+
     public function index()
     {
+        $this->authorize('view', Category::class);
         $categories = Category::all();
         $categories = $categories->map(function ($category) {
             return [
@@ -37,25 +28,16 @@ class CategoryController extends Controller
         return view('playbooks.categories.index', compact('categories'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function create()
     {
+        $this->authorize('create', Category::class);
         $categories = Category::all();
         return view('playbooks.categories.create', compact('categories'));
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function show($id)
     {
+        $this->authorize('view', Category::class);
         $category = Category::where('id', $id)->with('entries')->first();
         $entries = $category->entries;
 
@@ -63,7 +45,6 @@ class CategoryController extends Controller
             return [
                 'id' => $entry->id,
                 'title' => str_limit($entry->title, 15),
-//                'creator' => str_limit($entry->creator->name, 10),
                 'created_at' => $entry->created_at->diffForHumans(),
                 'updated_at' => $entry->updated_at->diffForHumans(),
                 'categories' => $entry->categories
@@ -73,60 +54,39 @@ class CategoryController extends Controller
         return view('playbooks.categories.show', compact('entries', 'category'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
+        $this->authorize('create', Category::class);
         $this->validate($request, [
-            'name' => 'required|unique:categories',
+            'name' => 'required|unique:playbook_categories',
         ]);
 
         $category = Category::Create(["name" => $request->name]);
         return redirect()->route('categories.index');
     }
 
-     /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function edit($id)
     {
+        $this->authorize('update', Category::class);
         $category = Category::find($id);
         return view('playbooks.categories.edit', compact('category'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function update(Request $request, $id)
     {
+        $this->authorize('update', Category::class);
         $category = Category::find($id);
         $this->validate($request, [
-            'name' => 'required|unique:categories',
+            'name' => 'required|unique:playbook_categories',
         ]);
 
         $category->update(["name" => $request->name]);
         return redirect()->route('categories.index');
     }
 
-     /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
     public function destroy($id)
     {
+        $this->authorize('delete', Category::class);
         $category = Category::find($id);
         $category->delete();
         return redirect()->route("categories.index");

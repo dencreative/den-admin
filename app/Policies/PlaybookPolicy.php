@@ -7,31 +7,31 @@ use App\Role;
 use Illuminate\Auth\Access\HandlesAuthorization;
 use Illuminate\Support\Facades\Auth;
 
-class UserPolicy
+class PlaybookPolicy
 {
     use HandlesAuthorization;
 
     public function view()
     {
-        return Auth::user()->hasPermission('users_view');
+        return Auth::user()->hasPermission('playbooks_view');
     }
 
-    public function create(User $user)
+    public function create()
     {
-        return Auth::user()->isSuperAdmin();
+        return Auth::user()->hasPermission('playbooks_create');
     }
 
-    public function update(User $user)
+    public function update()
     {
-        return Auth::user()->isSuperAdmin();
+        return Auth::user()->hasPermission('playbooks_edit');
     }
 
-    public function delete(User $user)
+    public function delete()
     {
-        return Auth::user()->isSuperAdmin();
+        return Auth::user()->hasPermission('playbooks_delete');
     }
 
-    public function restore(User $user, Role $role)
+    public function restore()
     {
         return Auth::user()->isSuperAdmin();
     }

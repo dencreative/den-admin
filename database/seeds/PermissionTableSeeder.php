@@ -7,11 +7,15 @@ class PermissionTableSeeder extends Seeder
 {
     protected $permissions = [
         'roles_view' => 'View Roles',
-        'roles_create' => 'Create Roles',
         'roles_update' => 'Edit Roles',
         'roles_assign' => 'Assign Roles',
 
         'users_view' => 'View Users',
+
+        'playbooks_view' => 'View Playbooks',
+        'playbooks_create' => 'Create Playbooks',
+        'playbooks_edit' => 'Edit Playbooks',
+        'playbooks_delete' => 'Delete Playbooks',
     ];
 
     /**

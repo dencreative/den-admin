@@ -31,7 +31,7 @@
 
             <div class="form-group">
                 <button type="submit" class="btn btn-success playbook-button">Save</button>
-                <a href="{{ url()->previous() }}">
+                <a href="{{ route('entries.index') }}">
                     <button type="button" class="btn btn-light playbook-button">Back</button>
                 </a>
             </div>
@@ -47,24 +47,6 @@
         $('.trumbowyg-box').trumbowyg({
             svgPath:'/assets/icons/wysiwyg.svg'
         });
-        // var id = $('.trumbowyg-box').data("id");
-
-        // $('.trumbowyg-box').trumbowyg({
-        //     svgPath:'/assets/icons/wysiwyg.svg',
-        //     btns: [
-        //         ['viewHTML'],
-        //         ['undo', 'redo'], // Only supported in Blink browsers
-        //         ['formatting'],
-        //         ['strong', 'em', 'del'],
-        //         ['superscript', 'subscript'],
-        //         ['link'],
-        //         ['justifyLeft', 'justifyCenter', 'justifyRight', 'justifyFull'],
-        //         ['unorderedList', 'orderedList'],
-        //         ['horizontalRule'],
-        //         ['removeformat'],
-        //         ['submit']
-        //     ]
-        // });
 
         $(document).ready(function() {
             $('.categories-select').select2({

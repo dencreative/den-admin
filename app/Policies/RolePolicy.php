@@ -31,7 +31,7 @@ class RolePolicy
      */
     public function create(User $user)
     {
-
+        return Auth::user()->isSuperAdmin();
     }
 
     /**
@@ -43,7 +43,7 @@ class RolePolicy
      */
     public function update(User $user)
     {
-        return Auth::user()->hasPermission('roles_update');
+        return Auth::user()->isSuperAdmin();
     }
 
     /**
@@ -55,6 +55,7 @@ class RolePolicy
      */
     public function delete(User $user)
     {
+        return Auth::user()->isSuperAdmin();
     }
 
     /**
@@ -66,7 +67,7 @@ class RolePolicy
      */
     public function restore(User $user, Role $role)
     {
-        //
+        return Auth::user()->isSuperAdmin();
     }
 
     /**

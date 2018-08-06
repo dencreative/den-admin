@@ -14,27 +14,43 @@
         </div>
 
         <ul class="navigation">
-            <li><a href="{{ route('dashboard') }}"><i class="zmdi zmdi-view-dashboard"></i>Dashboard</a></li>
+            <li class={{ Route::is('dashboard') ? "navigation__active" : ""}}>
+                <a href="{{ route('dashboard') }}"><i class="zmdi zmdi-view-dashboard"></i>Dashboard</a>
+            </li>
             <hr>
 
             @can('view', App\User::class)
-                <li><a href="{{ route('users.index') }}"><i class="zmdi zmdi-accounts-list"></i>Users</a></li>
+                <li class={{ Route::is('users*') ? "navigation__active" : ""}}>
+                    <a href="{{ route('users.index') }}"><i class="zmdi zmdi-accounts-list"></i>Users</a>
+                </li>
             @endcan
             @can('view', App\Role::class)
-                <li><a href="{{ route('roles.index') }}"><i class="zmdi zmdi-face"></i>Roles</a></li>
+                <li class={{ Route::is('roles*') ? "navigation__active" : ""}}>
+                    <a href="{{ route('roles.index') }}"><i class="zmdi zmdi-face"></i>Roles</a>
+                </li>
             @endcan
             @canany('view', [App\Role::class, App\User::class])
                 <hr>
             @endcanany
 
-            <li class="navigation__sub">
-                <a href=""><i class="zmdi zmdi-collection-text"></i> Playbooks</a>
-                <ul>
-                    <li><a href="{{ route('entries.index') }}">Entries</a></li>
-                    <li><a href="{{ route('categories.index') }}">Categories</a></li>
-                </ul>
-            </li>
-            <hr>
+            @canany('view', [App\Playbooks\Entry::class, App\Playbooks\Category::class])
+                <li class="navigation__sub {{ Route::is(['entries*', 'categories*']) ? "navigation__active" : ""}}">
+                    <a href=""><i class="zmdi zmdi-collection-text"></i> Playbooks</a>
+                    <ul>
+                        @can('view', App\Playbooks\Entry::class)
+                            <li class={{ Route::is('entries*') ? "navigation__active" : ""}}>
+                                <a href="{{ route('entries.index') }}">Entries</a>
+                            </li>
+                        @endcan
+                        @can('view', App\Playbooks\Category::class)
+                                <li class={{ Route::is('categories*') ? "navigation__active" : ""}}>
+                                <a href="{{ route('categories.index') }}">Categories</a>
+                            </li>
+                        @endcan
+                    </ul>
+                </li>
+                <hr>
+            @endcanany
 
             <li><a href=""><i class="zmdi zmdi-developer-board"></i>Tasks</a></li>
             <li><a href=""><i class="zmdi zmdi-calendar-alt"></i>Calendar</a></li>

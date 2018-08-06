@@ -1,5 +1,5 @@
 <div class="page-loader">
-    <img style="filter: grayscale(100%);"src={{ asset('assets/preloader.gif') }}>
+    <img style="filter: brightness(0); position: fixed; left: 50%; top: 50%; transform: translate(-50%, -50%);" src={{ asset('assets/preloader.gif') }}>
 {{--
     <div class="loader-container">
     <div class="group-1">

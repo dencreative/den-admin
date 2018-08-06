@@ -1,8 +1,7 @@
 @extends('layouts.app')
 
-@section('content')
-
-    <form action="/categories" method="POST">
+@section('body')
+    <form action="{{ route('categories.index') }}" method="POST">
         @csrf
         @method('POST')
 
@@ -12,7 +11,7 @@
                 <i class="form-group__bar"></i>
             </div>
             <button type="submit" class="btn btn-success playbook-button">Create</button>
-            <a href="{{ back() }}">
+            <a href="{{ route('categories.index') }}">
                 <button type="button" class="btn btn-light playbook-button">Cancel</button>
             </a>
         </div>
