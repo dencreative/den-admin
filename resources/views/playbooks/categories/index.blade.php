@@ -3,12 +3,13 @@
 @section('header')
     <h1>Categories</h1>
     <p>Below is the list of categories</p>
-    <a href="{{ route('categories.create') }}" class = "btn btn-success">Create New Category</a>
+    @can('create', App\Playbooks\Category::class)
+        <a href="{{ route('categories.create') }}" class = "btn btn-success">Create New Category</a>
+    @endcan
 @endsection
 
 @section('body')
     @include('layouts.partials.pageloader')
-
     <div class="table-responsive" style="padding: 5px 25px">
         <table id="data-table" class="table">
         <thead class="thead-light">
@@ -29,26 +30,30 @@
                 columns: [
                     { data: "name", searchable: true },
                     { data: "entries", width: "25%",
-                        render: function (data, type, row)
-                        {
-                            var hasEntries = parseInt(data) > 0;
-                            var viewAll = '';
-                            if(hasEntries)
-                                viewAll = '<a href="{{ route('categories.index') }}/'+row.id+'" class="btn btn-primary">View All ('+data+')</a>';
-                            return  '<div class="btn-toolbar" role="toolbar" aria-label="Action Toolbar">\n\n' +
-                                        '<div class="btn-group mr-2 ml-auto" role="group" aria-label="First group">'+
-                                     viewAll+
-                                        '<a href="{{ route('categories.index') }}/'+row.id+'/edit" class="btn btn-primary">Edit</a>\n' +
-                                    '</div>'+
-                                    '<div class="btn-group ml-auto" role="group" aria-label="Second group">'+
-                                    '<button class="btn btn-danger" onclick="onDelete('+row.id+')">Delete</a>\n' +
-                                        '</div>'+
-                                    '</div>';
+                        render: function (data, type, row) {
+                            var html = '<div class="btn-toolbar" role="toolbar" aria-label="Action Toolbar">' +
+                                '<div class="btn-group mr-2" role="group" aria-label="First group">';
+                            @can('view', App\Playbooks\Category::class)
+                                if(parseInt(data) > 0)
+                                    html += '<a href="{{ route('entries.index') }}/' + row.id + '" class="btn btn-primary" >Entries (' + data + ')</a>';
+                                else
+                                    html += '<button class="btn btn-primary" disabled>Entries (0)</button>';
+                            @endcan
+                            @can('update', App\Playbooks\Category::class)
+                                html += '<a href="{{ route('categories.index') }}/'+row.id+'/edit" class="btn btn-primary" >Edit</a>';
+                            @endcan
+                                html += '</div>';
+                            @can('delete', App\Playbooks\Category::class)
+                                html += '<div class="btn-group mr-2" role="group" aria-label="Second group">';
+                                html +=     '<button class="btn btn-danger" onclick="onDelete('+row.id+')">Delete</a>\n';
+                                html += '</div>';
+                            @endcan
+                                html += '</div>';
+                            return html;
                         }
                     }
                 ],
-                autoWidth: false,
-                responsive: true,
+                autoWidth: false, responsive: true,
                 lengthMenu: [[15, 30, 45, -1], ["15 Rows","30 Rows","45 Rows","Everything"]],
                 language: { searchPlaceholder: "Search Categories..." }
             });

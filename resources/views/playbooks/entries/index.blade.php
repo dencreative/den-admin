@@ -3,7 +3,9 @@
 @section('header')
     <h1>Entries</h1>
     <p>Below is the list of playbook entries</p>
-    <a href="{{ route('entries.create') }}" class = "btn btn-success">Create New Entry</a>
+    @can('create', App\Playbooks\Entry::class)
+        <a href="{{ route('entries.create') }}" class = "btn btn-success">Create New Entry</a>
+    @endcan
 @endsection
 
 @section('body')
@@ -44,20 +46,26 @@
                     { data: "updated_at", width: "18%", searchable: false },
                     { sortable: false, width : "22%",
                         render: function (data, type, row) {
-                                    return '<div class="btn-toolbar" role="toolbar" aria-label="Action Toolbar">\n\n' +
-                                                '<div class="btn-group mr-2" role="group" aria-label="First group">'+
-                                                    '<a href="{{ route('entries.index') }}/'+row.id+'" class="btn btn-primary">View</a>\n' +
-                                                    '<a href="{{ route('entries.index') }}/'+row.id+'/edit"  class="btn btn-primary">Edit</a>\n' +
-                                                '</div>'+
-                                                '<div class="btn-group mr-2" role="group" aria-label="Second group">'+
-                                                '<button class="btn btn-danger" onclick="onDelete('+row.id+')">Delete</a>\n' +
-                                                '</div>'+
-                                            '</div>';
-                                }
+                            var html = '<div class="btn-toolbar" role="toolbar" aria-label="Action Toolbar">' +
+                                           '<div class="btn-group mr-2" role="group" aria-label="First group">';
+                            @can('view', App\Playbooks\Entry::class)
+                                html += '<a href="{{ route('entries.index') }}/'+row.id+'" class="btn btn-primary" >View</a>';
+                            @endcan
+                            @can('update', App\Playbooks\Entry::class)
+                                html += '<a href="{{ route('entries.index') }}/'+row.id+'/edit" class="btn btn-primary" >Edit</a>';
+                            @endcan
+                                html += '</div>';
+                            @can('delete', App\Playbooks\Entry::class)
+                                html += '<div class="btn-group mr-2" role="group" aria-label="Second group">';
+                            html +=     '<button class="btn btn-danger" onclick="onDelete('+row.id+')">Delete</a>\n';
+                            html += '</div>';
+                            @endcan
+                                html += '</div>';
+                            return html;
+                        }
                     }
                 ],
-                autoWidth: false,
-                responsive: true,
+                autoWidth: false, responsive: true,
                 lengthMenu: [[15, 30, 45, -1], ["15 Rows","30 Rows","45 Rows","Everything"]],
                 language: { searchPlaceholder: "Search Entries..." },
             });
