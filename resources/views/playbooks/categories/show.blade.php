@@ -7,7 +7,7 @@
 @endsection
 
 @section('body')
-    @include('layouts.partials.pageloader')
+    @include('layouts.partials.preloader')
 
     <div class="table-responsive" style="padding: 5px 25px">
         <table id="data-table" class="table category-entries-data-table">

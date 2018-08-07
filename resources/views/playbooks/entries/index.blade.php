@@ -9,7 +9,7 @@
 @endsection
 
 @section('body')
-    @include('layouts.partials.pageloader')
+    @include('layouts.partials.preloader')
 
     <div class="table-responsive" style="padding: 5px 25px">
         <table id="data-table" class="table">
@@ -46,7 +46,7 @@
                     { data: "updated_at", width: "18%", searchable: false },
                     { sortable: false, width : "22%",
                         render: function (data, type, row) {
-                            var html = '<div class="btn-toolbar" role="toolbar" aria-label="Action Toolbar">' +
+                            var html = '<div class="btn-toolbar justify-content-end" role="toolbar" aria-label="Action Toolbar">' +
                                            '<div class="btn-group mr-2" role="group" aria-label="First group">';
                             @can('view', App\Playbooks\Entry::class)
                                 html += '<a href="{{ route('entries.index') }}/'+row.id+'" class="btn btn-primary" >View</a>';

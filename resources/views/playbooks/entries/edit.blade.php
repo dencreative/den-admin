@@ -8,12 +8,12 @@
         <div class="card-body" style="z-index: 0;">
 
             <div class="form-group">
-                <input name = "title" type="text" class="form-control form-control-lg" value="{!! $entry->title !!}"></input>
+                <input name = "title" type="text" class="form-control form-control-lg" value="{!! $entry->title !!}">
                 <i class="form-group__bar"></i>
             </div>
 
             <div class="form-group">
-                <select class="categories-select" multiple="multiple" name="categories[]" style="width: 100%;">
+                <select class="categories-select" multiple="multiple" name="categories[]" style="width: 100%; z-index:20;">
                     @foreach($categories_selected as $category)
                         <option value="{{ $category->name }}" selected>{{ $category->name }}</option>
                     @endforeach

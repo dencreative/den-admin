@@ -9,7 +9,7 @@
 @endsection
 
 @section('body')
-    @include('layouts.partials.pageloader')
+    @include('layouts.partials.preloader')
     <div class="table-responsive" style="padding: 5px 25px">
         <table id="data-table" class="table">
         <thead class="thead-light">
@@ -29,15 +29,13 @@
                 data: {!! $categories !!}, stateSave: true,
                 columns: [
                     { data: "name", searchable: true },
-                    { data: "entries", width: "25%",
+                    { data: "entries", width: "26%", searchable: false, sortable: false,
                         render: function (data, type, row) {
-                            var html = '<div class="btn-toolbar" role="toolbar" aria-label="Action Toolbar">' +
+                            var html = '<div class="btn-toolbar justify-content-end" role="toolbar" aria-label="Action Toolbar">' +
                                 '<div class="btn-group mr-2" role="group" aria-label="First group">';
                             @can('view', App\Playbooks\Category::class)
                                 if(parseInt(data) > 0)
-                                    html += '<a href="{{ route('entries.index') }}/' + row.id + '" class="btn btn-primary" >Entries (' + data + ')</a>';
-                                else
-                                    html += '<button class="btn btn-primary" disabled>Entries (0)</button>';
+                                    html += '<a href="{{ route('entries.index') }}/' + row.id + '" class="btn btn-primary" >View All (' + data + ')</a>';
                             @endcan
                             @can('update', App\Playbooks\Category::class)
                                 html += '<a href="{{ route('categories.index') }}/'+row.id+'/edit" class="btn btn-primary" >Edit</a>';

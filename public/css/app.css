@@ -726,7 +726,7 @@
 }
 
 .select2 {
-  z-index: 0;
+  z-index: 13;
   width: 100%;
 }
 

@@ -6,7 +6,7 @@
 @endsection
 
 @section('body')
-    @include('layouts.partials.pageloader')
+    @include('layouts.partials.preloader')
 
     <table id="user-table" class="table">
         <thead class="thead-light">
@@ -15,7 +15,7 @@
             <th scope="col">Name</th>
             <th scope="col">Roles</th>
             <th scope="col">Date Created</th>
-            <th scope="col"></th>
+            {{--<th scope="col"></th>--}}
         </tr>
         </thead>
     </table>
@@ -50,20 +50,20 @@
                             }
                         },
                         { data: "created_at", width: "15%", searchable: false },
-                        { sortable: false, width : "15%",
-                            render: function (data, type, row)
-                            {
-                                return '<div class="btn-toolbar" role="toolbar" aria-label="Action Toolbar">' +
-                                    '<div class="btn-group mr-2" role="group" aria-label="First group">'+
-                                        '<a href="/users/'+row.id+'" class="btn btn-primary btn-sm"><i class="zmdi zmdi-account"></i></a>' +
-                                        '<a href="/users/'+row.id+'/edit" class="btn btn-primary btn-sm"><i class="zmdi zmdi-edit"></i></a>' +
-                                    '</div>'+
-                                    '<div class="btn-group mr-2" role="group" aria-label="Second group">'+
-                                        '<button class="btn btn-danger btn-sm" onclick="onDelete('+row.id+')"><i class="zmdi zmdi-delete"></i></a>' +
-                                    '</div>'+
-                                '</div>';
-                            }
-                        }
+                        // { sortable: false, width : "15%",
+                        //     render: function (data, type, row)
+                        //     {
+                        //         return '<div class="btn-toolbar" role="toolbar" aria-label="Action Toolbar">' +
+                        //             '<div class="btn-group mr-2" role="group" aria-label="First group">'+
+                        //                 '<a href="/users/'+row.id+'" class="btn btn-primary btn-sm"><i class="zmdi zmdi-account"></i></a>' +
+                        //                 '<a href="/users/'+row.id+'/edit" class="btn btn-primary btn-sm"><i class="zmdi zmdi-edit"></i></a>' +
+                        //             '</div>'+
+                        //             '<div class="btn-group mr-2" role="group" aria-label="Second group">'+
+                        //                 '<button class="btn btn-danger btn-sm" onclick="onDelete('+row.id+')"><i class="zmdi zmdi-delete"></i></a>' +
+                        //             '</div>'+
+                        //         '</div>';
+                        //     }
+                        // }
                     ],
                     autoWidth: false,
                     responsive: true,

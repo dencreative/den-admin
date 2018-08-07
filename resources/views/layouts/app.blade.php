@@ -16,7 +16,6 @@
     <link rel="stylesheet" href="{{ url('vendors/bower_components/select2/dist/css/select2.min.css') }}">
     <link rel="stylesheet" href="{{ url('vendors/bower_components/trumbowyg/dist/ui/trumbowyg.min.css') }}">
     <link rel="stylesheet" href="{{ url('vendors/bower_components/sweetalert2/dist/sweetalert2.min.css') }}">
-{{--    <link rel="stylesheet" href="{{ url('vendors/bower_components/datatables.net-buttons-dt/css/buttons.dataTables.min.css') }}">--}}
 
     <!-- App/Theme styles -->
     <link href="{{ asset('css/theme.min.css') }}" rel="stylesheet">
@@ -31,24 +30,30 @@
     @include('layouts.partials.sidebar')
 
     <section class="content">
-        <header class="content__title">
-            @yield('header')
-        </header>
+        @hasSection('header')
+            <header class="content__title">
+                @yield('header')
+            </header>
+        @endif
+
+        @include('layouts.partials.errors')
 
         <div class="card">
             <div class="card-body">
                 @yield('body')
             </div>
-            <div class="card-footer">
-                @yield('footer')
-            </div>
+            @hasSection('footer')
+                <div class="card-footer">
+                    @yield('footer')
+                </div>
+            @endif
         </div>
 
         @yield('modal')
 
         @include('layouts.partials.footer')
-
     </section>
+
 </main>
 
 @include('layouts.partials.ie-warning');
@@ -64,7 +69,6 @@
 
 <script src="{{ url('vendors/bower_components/select2/dist/js/select2.full.min.js') }}" ></script>
 <script src="{{ url('vendors/bower_components/datatables.net/js/jquery.dataTables.min.js') }}" ></script>
-{{--<script src="{{ url('vendors/bower_components/datatables.net-buttons/js/dataTables.buttons.min.js') }}" ></script>--}}
 <script src="{{ url('vendors/bower_components/trumbowyg/dist/trumbowyg.min.js') }}"></script>
 <script src="{{ url('vendors/bower_components/sweetalert2/dist/sweetalert2.min.js') }}"></script>
 
