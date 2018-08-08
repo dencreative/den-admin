@@ -24,3 +24,5 @@ Route::get('playbooks/', function() {
 });
 Route::resource('playbooks/entries', 'Playbooks\EntryController');
 Route::resource('playbooks/categories', 'Playbooks\CategoryController');
+
+Route::resource('calendar', 'CalendarController');

@@ -1,11 +1,31 @@
-@import '_variables';
-@import '_pageloader';
+@import 'variables';
+
+
+@import '../vendors/bower_components/material-design-iconic-font/dist/css/material-design-iconic-font.min';
+@import '../vendors/bower_components/animate.css/animate.min';
+@import '../vendors/bower_components/jquery.scrollbar/jquery.scrollbar';
+@import '../vendors/bower_components/select2/dist/css/select2.min';
+@import '../vendors/bower_components/trumbowyg/dist/ui/trumbowyg.min';
+@import '../vendors/bower_components/sweetalert2/dist/sweetalert2.min';
+
+@import 'pageloader';
+@import 'theme';
 
 .select2{
-  z-index: 15;
-  width:100%;
+  //z-index: 15;
+  width: 100%;
 }
 
 .paginate_button.current {
   background-color: #ff6b68;
+}
+
+.table-fixed-head-col {
+  overflow-x:scroll;
+  margin-left:15em;
+}
+.fixed-head-col {
+  position:absolute;
+  width:15em;
+  left:0;
 }

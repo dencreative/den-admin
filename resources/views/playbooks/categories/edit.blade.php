@@ -1,6 +1,8 @@
 @extends('layouts.app')
 
 @section('body')
+    <div class="card">
+        <div class="card-body">
     <form action="{{ route('categories.index') }}/{{ $category->id }}" method="POST">
         @csrf
         @method('PUT')
@@ -16,4 +18,6 @@
             </a>
         </div>
     </form>
+        </div>
+    </div>
 @endsection

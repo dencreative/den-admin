@@ -10,19 +10,22 @@
 
 @section('body')
     @include('layouts.partials.preloader')
-
-    <div class="table-responsive" style="padding: 5px 25px">
-        <table id="data-table" class="table">
-            <thead class="thead-light">
-            <tr>
-                <th>Title</th>
-                <th>Categories</th>
-                <th>Date Created</th>
-                <th>Last Modified</th>
-                <th></th>
-            </tr>
-            </thead>
-        </table>
+    <div class="card">
+        <div class="card-body">
+            <div class="table-responsive" style="padding: 5px 25px">
+                <table id="data-table" class="table">
+                    <thead class="thead-light">
+                    <tr>
+                        <th>Title</th>
+                        <th>Categories</th>
+                        <th>Date Created</th>
+                        <th>Last Modified</th>
+                        <th></th>
+                    </tr>
+                    </thead>
+                </table>
+            </div>
+        </div>
     </div>
 @endsection
 

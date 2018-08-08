@@ -9,16 +9,7 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>{{ config('app.name', 'Laravel') }}</title>
 
-    <!-- Vendor styles -->
-    <link rel="stylesheet" href="{{ url('vendors/bower_components/material-design-iconic-font/dist/css/material-design-iconic-font.min.css') }}">
-    <link rel="stylesheet" href="{{ url('vendors/bower_components/animate.css/animate.min.css') }}">
-    <link rel="stylesheet" href="{{ url('vendors/bower_components/jquery.scrollbar/jquery.scrollbar.css') }}">
-    <link rel="stylesheet" href="{{ url('vendors/bower_components/select2/dist/css/select2.min.css') }}">
-    <link rel="stylesheet" href="{{ url('vendors/bower_components/trumbowyg/dist/ui/trumbowyg.min.css') }}">
-    <link rel="stylesheet" href="{{ url('vendors/bower_components/sweetalert2/dist/sweetalert2.min.css') }}">
-
-    <!-- App/Theme styles -->
-    <link href="{{ asset('css/theme.min.css') }}" rel="stylesheet">
+    <!-- App styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 </head>
 
@@ -36,44 +27,20 @@
             </header>
         @endif
 
-        @include('layouts.partials.errors')
+            @include('layouts.partials.errors')
 
-        <div class="card">
-            <div class="card-body">
-                @yield('body')
-            </div>
-            @hasSection('footer')
-                <div class="card-footer">
-                    @yield('footer')
-                </div>
-            @endif
-        </div>
+            @yield('body')
 
-        @yield('modal')
+            @yield('modal')
 
-        @include('layouts.partials.footer')
+            @include('layouts.partials.footer')
     </section>
-
 </main>
 
 @include('layouts.partials.ie-warning');
 
 <!-- App Scripts-->
 <script src="{{ asset('js/app.js') }}" ></script>
-
-<!-- Vendors Scripts -->
-<script src="{{ url('vendors/bower_components/popper.js/dist/umd/popper.min.js') }}" ></script>
-<script src="{{ url('vendors/bower_components/bootstrap/dist/js/bootstrap.min.js') }}" ></script>
-<script src="{{ url('vendors/bower_components/jquery.scrollbar/jquery.scrollbar.min.js') }}" ></script>
-<script src="{{ url('vendors/bower_components/jquery-scrollLock/jquery-scrollLock.min.js') }}" ></script>
-
-<script src="{{ url('vendors/bower_components/select2/dist/js/select2.full.min.js') }}" ></script>
-<script src="{{ url('vendors/bower_components/datatables.net/js/jquery.dataTables.min.js') }}" ></script>
-<script src="{{ url('vendors/bower_components/trumbowyg/dist/trumbowyg.min.js') }}"></script>
-<script src="{{ url('vendors/bower_components/sweetalert2/dist/sweetalert2.min.js') }}"></script>
-
-<!-- Theme Scripts-->
-<script src="{{ asset('js/theme.min.js') }}" ></script>
 
 @yield('js')
 

@@ -7,6 +7,17 @@
 
 require('./bootstrap');
 
+require('../vendors/bower_components/popper.js/dist/umd/popper.min');
+require('../vendors/bower_components/bootstrap/dist/js/bootstrap.min');
+require('../vendors/bower_components/jquery.scrollbar/jquery.scrollbar.min');
+require('../vendors/bower_components/jquery-scrollLock/jquery-scrollLock.min');
+require('../vendors/bower_components/select2/dist/js/select2.full.min');
+require('../vendors/bower_components/datatables.net/js/jquery.dataTables.min');
+require('../vendors/bower_components/trumbowyg/dist/trumbowyg.min');
+require('../vendors/bower_components/sweetalert2/dist/sweetalert2.min');
+
+require('./theme.min');
+
 // window.Vue = require('vue');
 
 /*

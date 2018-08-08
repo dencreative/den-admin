@@ -8,17 +8,21 @@
 @section('body')
     @include('layouts.partials.preloader')
 
-    <table id="user-table" class="table">
-        <thead class="thead-light">
-        <tr>
-            <th scope="col">#</th>
-            <th scope="col">Name</th>
-            <th scope="col">Roles</th>
-            <th scope="col">Date Created</th>
-            {{--<th scope="col"></th>--}}
-        </tr>
-        </thead>
-    </table>
+    <div class="card">
+        <div class="card-body">
+            <table id="user-table" class="table">
+                <thead class="thead-light">
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Name</th>
+                        <th scope="col">Roles</th>
+                        <th scope="col">Date Created</th>
+                        {{--<th scope="col"></th>--}}
+                    </tr>
+                </thead>
+            </table>
+        </div>
+    </div>
 @endsection
 
 @section('footer')
