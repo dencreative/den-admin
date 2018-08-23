@@ -3,13 +3,13 @@
 @section('header')
     <h1>Holiday Calendar</h1>
     <p></p>
-    <a href="/holidays/create" class = "btn btn-success btn-lg">Request Holiday</a>
+    <a href="{{ route('calendar.create') }}" class = "btn btn-success">Request Holiday</a>
 @endsection
 
 @section('body')
 
     <div class="row">
-        <div class="col-md-4">
+        <div class="{{ count($pending) > 0 ? 'col-md-4' : 'col-md-12' }}">
             @if(count($holidays_today) > 0)
                 <div class="card">
                     <div class="card-body">
@@ -39,9 +39,9 @@
                 </div>
             @endif
         </div>
-        <div class="col-md-8">
-            <div class="card">
-                @if(count($pending) > 0)
+        <div class="{{ count($holidays_today) > 0 ? 'col-md-8' : 'col-md-12' }}">
+            @if(count($pending) > 0)
+                <div class="card">
                     <div class="toolbar toolbar--inner">
                         <div class="toolbar__label">{{ count($pending) }} Upcoming Holiday Request{{count($pending) > 1 ? 's' : ''}}</div>
                     </div>
@@ -66,15 +66,11 @@
                             </div>
                         @endforeach
                     </div>
-                @endif
-            </div>
-        </div>
-        <div class="col-md-6">
-            <div class="card">
-
-            </div>
+                </div>
+            @endif
         </div>
     </div>
+
     <div class="card">
         <div class="card-body">
             @php
@@ -82,47 +78,59 @@
                 $next = $current->copy()->addMonth();
             @endphp
             <h4>Month View</h4>
-
-            {{--<div>--}}
-                <div class="table-responsive">
-                    <table class="table table-fixed-head-col">
-                        <thead class="thead-light">
+            <table class="table table-responsive table-sm">
+                <thead class="thead-light">
+                <tr>
+                    <th>Name</th>
+                    @php $iterator = $current->copy(); @endphp
+                    @while ($iterator->lt($next))
+                        <th class="text-center {{ $iterator->isToday() ? 'alert alert-warning' : ''}}">
+                            {{ $iterator->day }}
+                        </th>
+                         @php $iterator->addDay(); @endphp
+                    @endwhile
+                </tr>
+                </thead>
+                <tbody>
+                    @foreach($users as $user)
+                        @if($user->isSuperAdmin())
+                            @continue
+                        @endif
                         <tr>
-                            <th class="fixed-head-col">Name</th>
-                            @php $iterator = $current->copy(); @endphp
-                            @while ($iterator->lt($next))
-                                <th class = "text-center">
-                                    {{ $iterator->day }} <br>
-                                    <small>{{ $iterator->format('D') }}</small>
-                                </th>
+                            <td> {{ str_limit($user->name, 1)}} </td>
+                            @php
+                                $iterator = $current->copy();
+                                $holidays = App\Holiday::getByUser($user);
+                            @endphp
 
-                                 @php $iterator->addDay(); @endphp
+                            @while ($iterator->lt($next))
+                                @php
+                                    $isEmpty = true;
+                                @endphp
+                                @foreach($holidays as $holiday)
+                                    @if($iterator->gte($holiday->start_date->startOfDay()) && $iterator->lte($holiday->end_date->endOfDay()))
+                                        @if($holiday->status !== 'denied')
+                                            <td class="{{ $holiday->status === 'approved' ? 'alert alert-danger' : 'table-danger' }}" colspan="{{ $holiday->length($iterator) }}"
+                                            data-toggle="popover" data-trigger="hover" data-placement="right"
+                                            data-original-title="Away for {{ $holiday->length($iterator) }} days"
+                                            data-content="The reason given"></td>
+                                            @php
+                                                $iterator->addDays($holiday->length($iterator));
+                                                $isEmpty = false;
+                                            @endphp
+                                        @endif
+                                    @endif
+                                @endforeach
+
+                                @if($isEmpty)
+                                    <td class="{{ $iterator->isWeekend() ? 'bg-light' : '' }}"></td>
+                                    @php $iterator->addDay(); @endphp
+                                @endif
                             @endwhile
                         </tr>
-                        </thead>
-                        @foreach($users as $user)
-                            <tr>
-                                <td class="fixed-head-col"> {{ str_limit($user->name, 20)}} </td>
-                                @php
-                                    $iterator = $current->copy();
-                                    $holidays = $user->holidays($current->year, $current->month);
-                                @endphp
-                                @while ($iterator->lt($next))
-                                    @if(isset($holidays[$iterator->day]))
-                                        <th class="alert alert-danger"
-                                            data-toggle="popover" data-trigger="hover" data-placement="bottom"
-                                            data-original-title="Holiday from here to there"
-                                            data-content="The reason given"></th>
-                                    @else
-                                        <th></th>
-                                    @endif
-                                    @php $iterator->addDay(); @endphp
-                                @endwhile
-                            </tr>
-                        @endforeach
-                    </table>
-                </div>
-            {{--</div>--}}
+                    @endforeach
+                </tbody>
+            </table>
         </div>
     </div>
 @endsection

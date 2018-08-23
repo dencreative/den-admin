@@ -15,6 +15,8 @@ require('../vendors/bower_components/select2/dist/js/select2.full.min');
 require('../vendors/bower_components/datatables.net/js/jquery.dataTables.min');
 require('../vendors/bower_components/trumbowyg/dist/trumbowyg.min');
 require('../vendors/bower_components/sweetalert2/dist/sweetalert2.min');
+require('../vendors/flatpickr/flatpickr.min');
+// require('../vendors/flatpickr/plugins/rangePlugin');
 
 require('./theme.min');
 

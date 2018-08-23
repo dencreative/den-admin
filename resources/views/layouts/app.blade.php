@@ -39,6 +39,7 @@
 
 @include('layouts.partials.ie-warning');
 
+
 <!-- App Scripts-->
 <script src="{{ asset('js/app.js') }}" ></script>
 

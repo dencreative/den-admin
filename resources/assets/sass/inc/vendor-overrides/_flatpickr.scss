@@ -13,7 +13,7 @@
 }
 
 .flatpickr-months {
-  background-color: $teal;
+  background-color: $red;
   border-radius: $border-radius $border-radius 0 0;
 
   .flatpickr-month {
@@ -101,7 +101,7 @@ span.flatpickr-weekday {
 
   &.selected {
     &, &:hover {
-      background-color: $teal !important;
+      background-color: $red !important;
       color: $white !important;
     }
   }
@@ -140,4 +140,36 @@ span.flatpickr-weekday {
 
 .flatpickr-innerContainer {
   padding: 5px 0;
+}
+
+.flatpickr-day.selected,
+.flatpickr-day.startRange,
+.flatpickr-day.endRange,
+.flatpickr-day.selected.inRange,
+.flatpickr-day.startRange.inRange,
+.flatpickr-day.endRange.inRange,
+.flatpickr-day.selected:focus,
+.flatpickr-day.startRange:focus,
+.flatpickr-day.endRange:focus,
+.flatpickr-day.selected:hover,
+.flatpickr-day.startRange:hover,
+.flatpickr-day.endRange:hover,
+.flatpickr-day.selected.prevMonthDay,
+.flatpickr-day.startRange.prevMonthDay,
+.flatpickr-day.endRange.prevMonthDay,
+.flatpickr-day.selected.nextMonthDay,
+.flatpickr-day.startRange.nextMonthDay,
+.flatpickr-day.endRange.nextMonthDay {
+  background: $gray-600;
+  border-color: $gray-600;
+}
+.flatpickr-day.selected.startRange + .endRange,
+.flatpickr-day.startRange.startRange + .endRange,
+.flatpickr-day.endRange.startRange + .endRange {
+  -webkit-box-shadow: -10px 0 0 $gray-600;
+  box-shadow: -10px 0 0 $gray-600;
+}
+.flatpickr-day.week.selected {
+  -webkit-box-shadow: -5px 0 0 $gray-600, 5px 0 0 $gray-600;
+  box-shadow: -5px 0 0 $gray-600, 5px 0 0 $gray-600;
 }

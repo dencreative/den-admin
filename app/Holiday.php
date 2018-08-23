@@ -20,8 +20,10 @@ class Holiday extends Model
         return $this->belongsTo(User::class);
     }
 
-    public function length() {
-        return $this->start_date->diffInDays($this->end_date);
+    public function length(Carbon $date = null) {
+        if($date === null)
+            $date = $this->start_date;
+        return $date->diffInDays($this->end_date->copy()->addDay());
     }
 
     public function workingLength() {
@@ -30,8 +32,6 @@ class Holiday extends Model
 
     public function returnDate() {
         $returnDate = self::nextWorkingDay($this->end_date);
-//        $diffInDays = Carbon::today()->diffInDays($returnDate);
-//        return $diffInDays . ' day'. ($diffInDays == 1 ? '' : 's') . ' from now';
         $days = Carbon::today()->diffInDays($returnDate);
         if ($days === 1) {
             return " Till tomorrow";
@@ -42,17 +42,17 @@ class Holiday extends Model
         return 'Till ' . $returnDate->diffForHumans();
     }
 
-    public static function getByUser($user)
+    public static function getByUser(User $user)
     {
-        return self::where('user_id', '=', $user->id);
+        return self::where('user_id', '=', $user->id)->get();
     }
 
-    public static function getByStatus($status)
+    public static function getByStatus(string $status)
     {
-        return self::where('status', '=', $status);
+        return self::where('status', '=', $status)->get();
     }
 
-    public static function getByDate($date, $status = null)
+    public static function getByDate(Carbon $date, string $status = null)
     {
         $holidays = self::where(function ($query) use ($date) {
             $query->where('start_date', '<=', $date);
@@ -65,7 +65,7 @@ class Holiday extends Model
         return $holidays->get();
     }
 
-    public static function getByDateRange($from, $to, $status = null)
+    public static function getByDateRange(Carbon $from, Carbon $to, string $status = null)
     {
         $start = $from->copy();
         $end = $to->copy();
@@ -81,13 +81,13 @@ class Holiday extends Model
         return $holidays->get();
     }
 
-    public static function getByMonth($year, $month, $status = null)
+    public static function getByMonth(int $year, int $month, string $status = null)
     {
         $current = Carbon::createFromDate($year, $month, 1);
         return self::getByDateRange($current->copy()->startOfMonth(), $current->copy()->endOfMonth(), $status);
     }
 
-    public static function getStartsInDateRange($from, $to, $status = null)
+    public static function getStartsInDateRange(Carbon $from, Carbon $to, string $status = null)
     {
         $start = $from->copy();
         $end = $to->copy();
@@ -100,21 +100,20 @@ class Holiday extends Model
         return $holidays->get();
     }
 
-
-    public static function daysInMonth($year = null, $month = null) {
-        $current = Carbon::createFromDate($year, $month);
-        $startOfMonth = $current->copy()->startOfMonth();
-        $endOfMonth = $current->copy()->endOfMonth();
-        $holidays = self::where(function ($query) use (&$startOfMonth, &$endOfMonth) {
-            $query->whereBetween('start_date', array($startOfMonth->toDateString(),  $endOfMonth->toDateString()))
-                ->orWhereBetween('end_date', array($startOfMonth->toDateString(),  $endOfMonth->toDateString()));
-        })->get();
-
+    public static function holidaysToDays($holidays, Carbon $start = null, Carbon $end = null){
         $dates = [];
         foreach($holidays as $holiday)
         {
-            $start = $startOfMonth->max($holiday->start_date);
-            $end = $endOfMonth->min($holiday->end_date);
+            if($start == null)
+                $start = $holiday->start_date;
+            else
+                $start = $start->max($holiday->start_date);
+
+            if($end == null)
+                $end = $holiday->start_date;
+            else
+                $end = $end->max($holiday->end_date);
+
             $period = self::date_range($start, $end, true);
             foreach($period as $date){
                 $dates[$date->day] = $holiday->status;
@@ -122,6 +121,7 @@ class Holiday extends Model
         }
         return $dates;
     }
+
     private static function date_range(Carbon $from, Carbon $to, $inclusive = true)
     {
         if ($from->gt($to)) {

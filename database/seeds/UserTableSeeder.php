@@ -16,15 +16,43 @@ class UserTableSeeder extends Seeder
         $admin->addRole(Role::getSuperAdmin());
 
         $admin = new User();
-        $admin->name = 'Admin Example';
-        $admin->email = 'admin@example.com';
+        $admin->name = 'Admin 1';
+        $admin->email = 'admin1@example.com';
         $admin->password = Hash::make('secret');
         $admin->save();
         $admin->addRole('Admin');
 
         $admin = new User();
-        $admin->name = 'User Example';
-        $admin->email = 'user@example.com';
+        $admin->name = 'Admin 2';
+        $admin->email = 'admin2@example.com';
+        $admin->password = Hash::make('secret');
+        $admin->save();
+        $admin->addRole('Admin');
+
+        $admin = new User();
+        $admin->name = 'User 1';
+        $admin->email = 'user1@example.com';
+        $admin->password = Hash::make('secret');
+        $admin->save();
+        $admin->addRole('User');
+
+        $admin = new User();
+        $admin->name = 'User 2';
+        $admin->email = 'user2@example.com';
+        $admin->password = Hash::make('secret');
+        $admin->save();
+        $admin->addRole('User');
+
+        $admin = new User();
+        $admin->name = 'User 3';
+        $admin->email = 'user3@example.com';
+        $admin->password = Hash::make('secret');
+        $admin->save();
+        $admin->addRole('User');
+
+        $admin = new User();
+        $admin->name = 'User 4';
+        $admin->email = 'user4@example.com';
         $admin->password = Hash::make('secret');
         $admin->save();
         $admin->addRole('User');

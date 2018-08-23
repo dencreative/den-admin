@@ -53,7 +53,9 @@
             @endcanany
 
             <li><a href=""><i class="zmdi zmdi-developer-board"></i>Tasks</a></li>
-            <li><a href=""><i class="zmdi zmdi-calendar-alt"></i>Calendar</a></li>
+            <li class={{ Route::is('calendar*') ? "navigation__active" : ""}}>
+                <a href="{{ route('calendar.index') }}"><i class="zmdi zmdi-calendar-alt"></i>Calendar</a>
+            </li>
             <li><a href=""><i class="zmdi zmdi-time"></i>Timesheet</a></li>
         </ul>
     </div>

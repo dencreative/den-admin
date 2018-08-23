@@ -9,13 +9,8 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>{{ config('app.name', 'Laravel') }}</title>
 
-    <!-- Vendor styles -->
-    <link rel="stylesheet" href="vendors/bower_components/material-design-iconic-font/dist/css/material-design-iconic-font.min.css">
-    <link rel="stylesheet" href="vendors/bower_components/animate.css/animate.min.css">
-
-    <!-- App/Theme styles -->
+    <!-- App styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
-    <link href="{{ asset('css/theme.css') }}" rel="stylesheet">
 </head>
 
 <body data-ma-theme="red">
@@ -26,14 +21,9 @@
 
 @include('layouts.partials.ie-warning')
 
-<!-- Javascript -->
-<!-- Vendors Scripts -->
-<script src="vendors/bower_components/jquery/dist/jquery.min.js"></script>
-<script src="vendors/bower_components/popper.js/dist/umd/popper.min.js" ></script>
-<script src="vendors/bower_components/bootstrap/dist/js/bootstrap.min.js" ></script>
-
 <!-- App Scripts-->
-<script src="{{ asset('js/theme.min.js') }}" ></script>
+<script src="{{ asset('js/app.js') }}" ></script>
+
 
 </body>
 </html>

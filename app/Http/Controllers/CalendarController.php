@@ -27,7 +27,7 @@ class CalendarController extends Controller
     public function index()
     {
         $today = Carbon::today();
-        $current = Carbon::createFromDate($today->year, $today->month, 1);
+        $current = $today->startOfMonth();
 
         $users = User::all();
         $upcoming = Holiday::getStartsInDateRange($today->copy()->addDay(), $today->copy()->addMonth(), 'approved');
